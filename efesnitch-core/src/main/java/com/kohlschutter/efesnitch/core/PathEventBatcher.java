@@ -36,7 +36,7 @@ final class PathEventBatcher {
   private static final Logger LOG = LoggerFactory.getLogger(PathEventBatcher.class);
 
   private final PathWatcherImpl modificationsWatcher;
-  private static final long TYPICAL_FLUSH_INTERVAL = 1000;
+  private static final long TYPICAL_FLUSH_INTERVAL = 500;
   private static final long MAX_FLUSH_INTERVAL = 10000;
   private final AtomicLong lastFlush = new AtomicLong();
   private final AtomicBoolean newAdds = new AtomicBoolean();
