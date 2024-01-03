@@ -66,8 +66,7 @@ final class PathRegistrationImpl implements PathRegistration {
     }
     synchronized (this.modificationsWatcher.watchKeys) {
       for (WatchKey key : keys) {
-        Map<PathRegistrationImpl, Boolean> map = this.modificationsWatcher.watchKeys.get(
-            key);
+        Map<PathRegistrationImpl, Boolean> map = this.modificationsWatcher.watchKeys.get(key);
         if (map == null) {
           continue;
         }

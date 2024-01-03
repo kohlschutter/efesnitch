@@ -66,7 +66,7 @@ public class PathWatcherImpl implements PathWatcher {
 
   private final WatchService watchService;
 
-  private final AtomicBoolean closed = new AtomicBoolean(false);
+  private final AtomicBoolean shutdown = new AtomicBoolean(false); // NOPMD.AvoidFieldNameMatchingMethodName
   private final CompletableFuture<Void> watchJob;
 
   final Map<WatchKey, Map<PathRegistrationImpl, Boolean>> watchKeys = new WeakHashMap<>();
@@ -86,7 +86,7 @@ public class PathWatcherImpl implements PathWatcher {
     }
     watchJob = CompletableFuture.runAsync(() -> {
       while (!Thread.interrupted()) {
-        if (closed.get()) {
+        if (shutdown.get()) {
           return;
         }
         try {
@@ -101,7 +101,7 @@ public class PathWatcherImpl implements PathWatcher {
           return;
         }
       }
-      if (!closed.get()) {
+      if (!shutdown.get()) {
         LOG.warn("Interrupted");
       }
     });
@@ -191,9 +191,11 @@ public class PathWatcherImpl implements PathWatcher {
     }
   }
 
-  @Override
+  /**
+   * Waits until this instance is shut down.
+   */
   public void awaitTermination() {
-    if (isClosed()) {
+    if (isShutdown()) {
       return;
     }
     try {
@@ -203,9 +205,13 @@ public class PathWatcherImpl implements PathWatcher {
     }
   }
 
-  @Override
-  public void close() throws IOException {
-    closed.set(true);
+  /**
+   * Closes this instance.
+   * 
+   * @throws IOException on error.
+   */
+  public void shutdown() throws IOException {
+    shutdown.set(true);
     watchJob.cancel(true);
     watchService.close();
     awaitTermination();
@@ -399,8 +405,12 @@ public class PathWatcherImpl implements PathWatcher {
     }
   }
 
-  @Override
-  public boolean isClosed() {
-    return closed.get();
+  /**
+   * Checks if this instance is shut down.
+   * 
+   * @return if shut down.
+   */
+  public boolean isShutdown() {
+    return shutdown.get();
   }
 }

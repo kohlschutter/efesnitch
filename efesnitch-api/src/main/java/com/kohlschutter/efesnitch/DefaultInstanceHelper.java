@@ -17,21 +17,14 @@
  */
 package com.kohlschutter.efesnitch;
 
-/**
- * A registration ticket for a path registered to be watched via {@link PathWatcher}.
- *
- * @author Christian Kohlschütter
- */
-public interface PathRegistration {
-  /**
-   * Cancels this registration for the corresponding path.
-   */
-  void cancel();
+import java.util.Optional;
+import java.util.ServiceLoader;
 
-  /**
-   * Returns {@code true} if there was no other registration for the corresponding path.
-   *
-   * @return {@code true} if fresh.
-   */
-  boolean isFresh();
+final class DefaultInstanceHelper {
+  private static final Optional<PathWatcher> PATH_WATCHER_INSTANCE = ServiceLoader.load(
+      PathWatcher.class).findFirst();
+
+  static PathWatcher getDefaultPathWatcher() {
+    return PATH_WATCHER_INSTANCE.get();
+  }
 }

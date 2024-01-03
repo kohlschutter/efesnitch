@@ -17,9 +17,9 @@
  */
 package com.kohlschutter.efesnitch;
 
-import java.io.Closeable;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.NoSuchElementException;
 import java.util.function.Consumer;
 
 /**
@@ -31,7 +31,7 @@ import java.util.function.Consumer;
  *
  * @author Christian Kohlschütter
  */
-public interface PathWatcher extends Closeable {
+public interface PathWatcher {
   /**
    * Checks if this instance may register the given path.
    *
@@ -51,16 +51,12 @@ public interface PathWatcher extends Closeable {
   PathRegistration register(Path path, Consumer<Path> onEvent) throws IOException;
 
   /**
-   * Checks if this instance has been closed.
+   * Returns the default {@link PathWatcher} instance, which is defined via SPI.
    *
-   * @return {@code true} if closed.
+   * @return The default instance.
+   * @throws NoSuchElementException if no default instance is known.
    */
-  boolean isClosed();
-
-  /**
-   * Waits until the watcher is closed.
-   *
-   * @see #close()
-   */
-  void awaitTermination();
+  static PathWatcher getDefaultInstance() {
+    return DefaultInstanceHelper.getDefaultPathWatcher();
+  }
 }

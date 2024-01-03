@@ -51,7 +51,7 @@ final class PathEventBatcher {
     lastFlush.set(System.currentTimeMillis());
 
     while (!Thread.interrupted()) {
-      if (this.modificationsWatcher.isClosed()) {
+      if (this.modificationsWatcher.isShutdown()) {
         return;
       }
       Map<WatchKey, Collection<Path>> keys2 = new HashMap<>();
@@ -77,7 +77,7 @@ final class PathEventBatcher {
         this.modificationsWatcher.onEventKeys(keys2);
       }
     }
-    if (!this.modificationsWatcher.isClosed()) {
+    if (!this.modificationsWatcher.isShutdown()) {
       LOG.warn("Interrupted");
     }
   }
