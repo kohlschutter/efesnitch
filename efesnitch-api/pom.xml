@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.kohlschutter.efesnitch</groupId>
         <artifactId>efesnitch</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 

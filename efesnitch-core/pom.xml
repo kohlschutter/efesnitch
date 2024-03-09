@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.kohlschutter.efesnitch</groupId>
         <artifactId>efesnitch</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -14,7 +14,6 @@
 
     <properties>
         <kohlschutter.project.notice.file>${project.parent.basedir}/NOTICE</kohlschutter.project.notice.file>
-        <slf4j.version>2.0.9</slf4j.version>
     </properties>
 
     <build>
@@ -42,7 +41,6 @@
                 <plugin>
                     <groupId>io.helidon.build-tools</groupId>
                     <artifactId>helidon-services-plugin</artifactId>
-                    <version>4.0.2</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -52,17 +50,14 @@
         <dependency>
             <groupId>com.kohlschutter.efesnitch</groupId>
             <artifactId>efesnitch-api</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>${slf4j.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
