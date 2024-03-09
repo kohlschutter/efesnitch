@@ -21,6 +21,7 @@ import java.util.Optional;
 import java.util.ServiceLoader;
 
 final class DefaultInstanceHelper {
+  @SuppressWarnings("null")
   private static final Optional<PathWatcher> PATH_WATCHER_INSTANCE = ServiceLoader.load(
       PathWatcher.class).findFirst();
 
