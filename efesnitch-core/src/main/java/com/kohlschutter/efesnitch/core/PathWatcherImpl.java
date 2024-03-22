@@ -58,6 +58,7 @@ import com.kohlschutter.util.PathUtil;
  *
  * @author Christian Kohlschütter
  */
+@SuppressWarnings("PMD.CouplingBetweenObjects")
 public class PathWatcherImpl implements PathWatcher {
   private static final Logger LOG = LoggerFactory.getLogger(PathWatcherImpl.class);
   private static final Consumer<Path> PATH_CONSUMER_NO_OP = (p) -> {
